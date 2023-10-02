@@ -86,3 +86,53 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    def test_db_storage_get_nonexistent_instance(self):
+        """Test if DBStorage correctly meets the requirements."""
+
+        """Ensure the database is empty"""
+        storage.clear()
+
+        """Attempt to retrieve a non-existent instance """
+        retrieved_instance = storage.get("State", "non_existent_id")
+
+        """Assert that the retrieved instance is None"""
+        self.assertIsNone(retrieved_instance)
+
+        """Add a sample instance to the database"""
+        sample_state = State(name="Delaware")
+        storage.new(sample_state)
+        storage.save()
+
+        """Attempt to retrieve the added instance"""
+        retrieved_instance = storage.get("State", sample_state.id)
+
+        """Assert that the retrieved instance matches the original instance"""
+        self.assertEqual(retrieved_instance, sample_state)
+
+    def test_db_storage_count_total_and_class(self):
+        """Test the total count and class-specific count in DBStorage."""
+
+        """Ensure the database is empty"""
+        storage.clear()
+
+        """Add multiple instances of different classes"""
+        state1 = State(name="California")
+        state2 = State(name="Texas")
+        city1 = City(name="Los Angeles", state_id=state1.id)
+        city2 = City(name="Austin", state_id=state2.id)
+
+        storage.new(state1)
+        storage.new(state2)
+        storage.new(city1)
+        storage.new(city2)
+        storage.save()
+
+        """Count the total number of objects"""
+        total_count = storage.count()
+
+        """Count the number of City objects"""
+        city_count = storage.count("City")
+
+        """Assert that the total count is equal to the sum"""
+        self.assertEqual(total_count, city_count + 2)
