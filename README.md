@@ -157,6 +157,13 @@ No known bugs at this time.
 Alexa Orrico - [Github](https://github.com/alexaorrico) / [Twitter](https://twitter.com/alexa_orrico)  
 Jennifer Huang - [Github](https://github.com/jhuang10123) / [Twitter](https://twitter.com/earthtojhuang)
 
+## Contributor
+Caleb Kilonzi - <calebkillom@gmail.com>
+
+## Contribution Details
+The main contribution will be implementing Restful API concepts and
+incorporating unittests to make sure the whole thing is working as expected.
+
 Second part of Airbnb: Joann Vuong
 ## License
 Public Domain. No copy write protection. 
