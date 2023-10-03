@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 """ python script that creates variable app, instance of Flask """
 import os
-from flask import Flask
+from flask import Flask, make_response, jsonify
 from models import storage
 from api.v1.views import app_views
 
@@ -16,6 +16,12 @@ app.register_blueprint(app_views)
 def close_storage(exception):
     """ Method that Closes the storage when the app context is torn down."""
     storage.close()
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """ Method that Defines a custom error handler for 404 errors """
+    return make_response(jsonify({'error': 'Not found'}), 404)
 
 
 if __name__ == "__main__":
