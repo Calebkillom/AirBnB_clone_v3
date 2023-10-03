@@ -18,6 +18,7 @@ import json
 import os
 import pep8
 import unittest
+from models import storage
 DBStorage = db_storage.DBStorage
 classes = {"Amenity": Amenity, "City": City, "Place": Place,
            "Review": Review, "State": State, "User": User}
@@ -87,7 +88,7 @@ class TestFileStorage(unittest.TestCase):
     def test_save(self):
         """Test that save properly saves objects to file.json"""
 
-    def test_db_storage_get_nonexistent_instance(self):
+    def test_db_storage_get(self):
         """Test if DBStorage correctly meets the requirements."""
 
         """Ensure the database is empty"""
@@ -110,7 +111,7 @@ class TestFileStorage(unittest.TestCase):
         """Assert that the retrieved instance matches the original instance"""
         self.assertEqual(retrieved_instance, sample_state)
 
-    def test_db_storage_count_total_and_class(self):
+    def test_db_storage_count(self):
         """Test the total count and class-specific count in DBStorage."""
 
         """Ensure the database is empty"""
